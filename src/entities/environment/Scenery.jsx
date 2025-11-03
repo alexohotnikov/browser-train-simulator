@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import * as THREE from "three";
 import { SpeedLimitSign } from "./SpeedLimitSign";
+import { SPEED_LIMIT_ZONES } from "../../shared/hooks/useSpeedLimitScoring";
 
 export function Scenery({ curve }) {
   const trees = useMemo(() => {
@@ -47,7 +48,14 @@ export function Scenery({ curve }) {
           </group>
         );
       })}
-      <SpeedLimitSign curve={curve} position={0.25} />
+      {SPEED_LIMIT_ZONES.map((zone, i) => (
+        <SpeedLimitSign 
+          key={i} 
+          curve={curve} 
+          position={zone.start} 
+          limit={zone.limit}
+        />
+      ))}
     </group>
   );
 }

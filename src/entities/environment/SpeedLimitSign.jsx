@@ -1,7 +1,8 @@
 import { useMemo } from "react";
 import * as THREE from "three";
+import { Text } from "@react-three/drei";
 
-export function SpeedLimitSign({ curve, position }) {
+export function SpeedLimitSign({ curve, position, limit }) {
   const signPos = useMemo(() => curve.getPointAt(position), [curve, position]);
   const tangent = useMemo(() => curve.getTangentAt(position), [curve, position]);
   const up = new THREE.Vector3(0, 1, 0);
@@ -40,6 +41,18 @@ export function SpeedLimitSign({ curve, position }) {
           <cylinderGeometry args={[0.05, 0.05, 0.6, 8]} />
           <primitive object={redMaterial} attach="material" />
         </mesh>
+        {limit && (
+          <Text
+            position={[0, 0, 0.62]}
+            fontSize={0.35}
+            color="#000000"
+            anchorX="center"
+            anchorY="center"
+            renderOrder={10}
+          >
+            {limit}
+          </Text>
+        )}
       </group>
     </group>
   );

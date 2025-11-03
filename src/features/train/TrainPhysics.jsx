@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { useKeys } from "../../shared/hooks/useKeys";
+import { useSpeedLimitScoring } from "../../shared/hooks/useSpeedLimitScoring";
 import {
   MAX_TRACTIVE_EFFORT,
   TRAIN_MASS,
@@ -23,6 +24,9 @@ export function useTrainPhysics(curve, uiState) {
   const [dir, setDir] = useState(1);
   const [cameraMode, setCameraMode] = useState('chase'); // 'chase' | 'cab' | 'car' | 'top'
   const [isNight, setIsNight] = useState(false);
+
+  // Система подсчёта баллов за соблюдение ограничений скорости
+  const { score, currentLimit } = useSpeedLimitScoring(t, speed, uiState);
 
   useEffect(() => {
     function toggle(e) {
@@ -86,6 +90,8 @@ export function useTrainPhysics(curve, uiState) {
     uiState.current.t = t;
     uiState.current.dir = dir;
     uiState.current.cameraMode = cameraMode;
+    uiState.current.speedLimit = currentLimit;
+    uiState.current.score = score;
   });
 
   return { train, speed, isNight, cameraMode, dir, t };
