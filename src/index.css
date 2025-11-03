@@ -1,0 +1,21 @@
+html, body, #root {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #0b0f12;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* StatsGl positioning */
+.r3f-stats {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  left: auto !important;
+  bottom: auto !important;
+}
